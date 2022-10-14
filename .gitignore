@@ -1,2 +1,4 @@
 env/
 test.html
+.env
+__pycache__/
