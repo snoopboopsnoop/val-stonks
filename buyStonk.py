@@ -7,7 +7,8 @@ load_dotenv()
 
 ledgerID = os.getenv("LEDGER_ID")
 gameID = os.getenv("GAME_ID")
-cookie = os.getenv("COOKIE")
+djcs_auto = os.getenv("DJCS_AUTO")
+djcs_session = os.getenv("DJCS_SESSION")
 
 def buy(djid, shares):
     url = f'https://vse-api.marketwatch.com/v1/games/{gameID}/ledgers/{ledgerID}/trades'
@@ -20,13 +21,16 @@ def buy(djid, shares):
         "orderType": "Market"
     })
     headers = {
-        'content-type': 'application/json',
-        'cookie': cookie,
+        'Content-Type': 'application/json',
+        'cookie': f'djcs_auto={djcs_auto};djcs_session={djcs_session};'
     }
     response = requests.request("POST", url, headers=headers, data=payload).json()
 
-    if(response["data"]["status"] == "Submitted"):
-        print("Purchased " + str(response["data"]["shares"]) + " shares")
-    else:
+    try:
+        if(response["data"]["status"] == "Submitted"):
+            print("Purchased " + str(response["data"]["shares"]) + " shares")
+        else:
+            print("Failed to purchase stonk. Maybe your dogshit ass cookies reset? idfk")
+    except:
         print("Failed to purchase stonk. Maybe your dogshit ass cookies reset? idfk")
     
