@@ -26,11 +26,17 @@ def buy(djid, shares):
     }
     response = requests.request("POST", url, headers=headers, data=payload).json()
 
+
     try:
-        if(response["data"]["status"] == "Submitted"):
-            print("Purchased " + str(response["data"]["shares"]) + " shares")
-        else:
-            print("Failed to purchase stonk. Maybe your dogshit ass cookies reset? idfk")
+        if(response['errors'][0]['message'] == 'Total price or shares must be specified'):
+            print("Good to go!")
     except:
-        print("Failed to purchase stonk. Maybe your dogshit ass cookies reset? idfk")
+        try:
+            if(response["data"]["status"] == "Submitted"):
+                print("Purchased " + str(response["data"]["shares"]) + " shares")
+            else:
+                print("Failed to purchase stonk. Maybe your dogshit ass cookies reset? idfk")
+        except:
+            print("Failed to purchase stonk. Maybe your dogshit ass cookies reset? idfk")
+            quit()
     

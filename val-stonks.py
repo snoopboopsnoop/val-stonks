@@ -6,10 +6,19 @@ import marketwatch
 import time
 import json
 
-historyURL = "https://api.henrikdev.xyz/valorant/v3/matches/na/snoopboopsnoop/8874"
-mmrURL = "https://api.henrikdev.xyz/valorant/v1/mmr-history/na/snoopboopsnoop/8874"
+kAvgBuy = 4000
+kValUser = 'snoopboopsnoop'
+kRiotID = '8874'
+
+historyURL = f"https://api.henrikdev.xyz/valorant/v3/matches/na/{kValUser}/{kRiotID}"
+mmrURL = f"https://api.henrikdev.xyz/valorant/v1/mmr-history/na/{kValUser}/{kRiotID}"
 
 stonks = ['AAPL', 'MSFT', 'GOOG', 'AMZN', 'TSLA', 'UNH', 'JNJ', 'XOM', 'V', 'WMT', 'META', 'LLY', 'CVX', 'JPM', 'PG', 'HD', 'NVDA', 'MA', 'ABBV', 'BAC', 'KO', 'PFE', 'MRK', 'PEP', 'COST', 'TMO', 'DHR', 'AVGO', 'ABT', 'MCD', 'TMUS', 'DIS', 'ORCL', 'CSCO', 'ACN', 'WFC', 'NEE', 'VZ', 'BMY', 'COP', 'CRM', 'TXN', 'UPS', 'NKE', 'SCHW', 'LIN', 'PM', 'ADBE', 'MS', 'AMGN', 'CMCSA', 'RTX', 'QCOM', 'LOW', 'UNP', 'HON', 'CVS', 'ELV', 'DE', 'LMT', 'MDT', 'INTU', 'IBM', 'T', 'AXP', 'INTC', 'GS', 'BX', 'SBUX', 'SPGI', 'PYPL', 'NFLX', 'CAT', 'ADP', 'AMD', 'CI', 'GILD', 'BLK', 'REGN', 'SYK', 'MO', 'C', 'NOC', 'BA', 'CB', 'MDLZ', 'EL', 'MMC', 'VRTX', 'NOW', 'TJX', 'PGR', 'EOG', 'ADI', 'TGT', 'GE', 'ABNB', 'SO', 'DUK']
+
+#test if buy works
+print("Testing stock purchase API:")
+buyStonk.buy("13-3122", 0)
+
 
 # get 2 random positions in stonks
 rand1 = random.randint(0, len(stonks)-1)
@@ -99,7 +108,7 @@ djid = getDjid.djid(stocktobuy)
 price = djid[1]
 djid = djid[0]
 
-shares = round((2000 * kd) / price)
+shares = round((kAvgBuy * kd) / price)
 
 print(f'Buying {shares} shares of {stocktobuy}...')
 
